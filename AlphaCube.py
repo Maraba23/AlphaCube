@@ -67,6 +67,12 @@ while True:
         [-math.sin(angulo), 0, math.cos(angulo)]
     ])
 
+    R_x = np.matrix([
+        [1, 0, 0],
+        [0, math.cos(angulo), -math.sin(angulo)],
+        [0, math.sin(angulo), math.cos(angulo)]
+    ])
+
     screen.fill((0, 0, 0))
 
     angulo += 0.01
@@ -75,6 +81,7 @@ while True:
     for ponto in pontos:
         Xd = R_z @ ponto.T
         Xd = R_y @ Xd
+        Xd = R_x @ Xd
         para2d = matriz_de_projecao @ Xd
 
         pontos_2d[i] = [int(para2d[0, 0] * 100 + 400), int(para2d[1, 0] * 100 + 300)]
