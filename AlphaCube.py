@@ -32,7 +32,7 @@ angulo = 0
 pontos_2d = [[n,n] for n in range(len(pontos))]
 
 def linha(p1, p2, pontos):
-    pygame.draw.line(screen, RED, (pontos[p1][0], pontos[p1][1]), (pontos[p2][0], pontos[p2][1]), 1)
+    pygame.draw.line(screen, GREEN, (pontos[p1][0], pontos[p1][1]), (pontos[p2][0], pontos[p2][1]), 1)
 
 
 ####################################
@@ -43,7 +43,7 @@ pygame.display.set_caption("AlphaCube")
 
 clock = pygame.time.Clock()
 while True:
-    clock.tick(60)
+    clock.tick(80)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -67,6 +67,12 @@ while True:
         [-math.sin(angulo), 0, math.cos(angulo)]
     ])
 
+    R_x = np.matrix([
+        [1, 0, 0],
+        [0, math.cos(angulo), -math.sin(angulo)],
+        [0, math.sin(angulo), math.cos(angulo)]
+    ])
+
     screen.fill((0, 0, 0))
 
     angulo += 0.01
@@ -75,6 +81,7 @@ while True:
     for ponto in pontos:
         Xd = R_z @ ponto.T
         Xd = R_y @ Xd
+        Xd = R_x @ Xd
         para2d = matriz_de_projecao @ Xd
 
         pontos_2d[i] = [int(para2d[0, 0] * 100 + 400), int(para2d[1, 0] * 100 + 300)]
