@@ -115,17 +115,22 @@ Segue, a seguir, uma imagem que representa um resumo teórico da explicação ac
 No código, a primeira coisa que é feita é definir as coordenadas dos vértices do cubo, armazenados no array `corners`. A função `draw_cube` irá utilizar essas coordenadas e a distância focal (`focal_length`) para desenhar o cubo em um espaço bidimensional, utilizando a teoria acima explicada.
 Ademais, a função também realiza as rotações do cubo nos 3 eixos utilizando trigonometria e multiplicações matriciais. Definimos os senos e cossenos dos ângulos que serão incrementados a cada tick do andamento do programa, e depois definimos as matrizes de rotação para cada eixo:
 
-$$ R_x = \begin{bmatrix}
+$$ 
+R_x = \begin{bmatrix}
 1 & 0 & 0 \\
 0 & cos(\theta) & -sin(\theta) \\
 0 & sin(\theta) & cos(\theta) \\
-\end{bmatrix} $$
-$$ R_y = \begin{bmatrix}
+\end{bmatrix} 
+$$
+$$ 
+R_y = \begin{bmatrix}
 cos(\theta) & 0 & sin(\theta) \\
 0 & 1 & 0 \\
 -sin(\theta) & 0 & cos(\theta) \\
-\end{bmatrix} $$
-$$ R_z = \begin{bmatrix}
+\end{bmatrix} 
+$$
+$$ 
+R_z = \begin{bmatrix}
 cos(\theta) & -sin(\theta) & 0 \\
 sin(\theta) & cos(\theta) & 0 \\
 0 & 0 & 1 \\
