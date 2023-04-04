@@ -56,7 +56,7 @@ $$
 x_p * w_p = x_0
 $$
 
-Com $w_p$ assumindo o valor de $\frac{y_0}{y_p}$. Com isso, podemos utilizar uma multiplicação matricial para resolver, com uma matriz de projeção *P*, que realizará a transformação de coordenadas 2D para uma dimensão, multiplicada por um vetor de coordenadas bidimensionais *X*, $[x_0, y_0, 1]^T$, para obter um vetor de coordenadas *T*, $[x_p * w_p, y_p, w_p]^T$.
+Com $w_p$ assumindo o valor de $\frac{y_0}{y_p}$. Com isso, podemos utilizar uma multiplicação matricial para resolver, com uma matriz de projeção *P*, que realizará a transformação de coordenadas 2D para uma dimensão, multiplicada por um vetor de coordenadas bidimensionais $\overrightarrow{X}$, $[x_0, y_0, 1]^T$, para obter um vetor de coordenadas $\overrightarrow{T}$, $[x_p * w_p, y_p, w_p]^T$.
 
 Como sabemos que $x_p * w_p$ depende apenas de $x_0$, é possível deduzir a primeira linha da matriz *P*: $[1, 0, 0]$, ou seja, após a multiplicação matricial, o valor de $x_p * w_p$ será igual ao valor de $x_0$. 
 Também sabemos que o valor de $y_p$ será igual à distância focal *d*, que representa a distância entre o orifício da câmera e o aparato. Assim, a segunda linha da matriz *P* será $[0, 0, -d]$. Após a multiplicação matricial, o valor de $y_p$ será igual a $-d$. A distância precisa ser negativa pois a reta, como pode ser visto na figura acima, está abaixo da origem.
@@ -74,7 +74,7 @@ P = \begin{bmatrix}
 $$
 
 Com isso, após realizarmos a multiplicação matricial, é possível obter as coordenadas no plano cartesiano das imagens projetadas na rata *y = -1*.
-O vetor $\arrow{T}$ é obtido a partir da multiplicação $P @ \arrow{X}$, ou seja:
+O vetor $\overrightarrow{T}$ é obtido a partir da multiplicação $P @ \overrightarrow{X}$, ou seja:
 
 $$
 \begin{bmatrix}
@@ -92,4 +92,4 @@ w_p
 \end{bmatrix}
 $$
 
-Após esse resultado, podemos obter o valor projetado $x_p$ através da divisão $\arrow{T}[0] / \arrow{T}[2]$. Assim obtemos as coordenadas projetadas $x_p, y_p$.
+Após esse resultado, podemos obter o valor projetado $x_p$ através da divisão $\overrightarrow{T}[0] / \overrightarrow{T}[2]$. Assim obtemos as coordenadas projetadas $x_p, y_p$.
