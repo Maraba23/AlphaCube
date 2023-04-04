@@ -69,11 +69,11 @@ $$
 P = \begin{bmatrix}
 1 & 0 & 0 \\
 0 & 0 & -d \\
-0 & \frac{y_0}{-d} & 0 \\
+0 & \frac{1}{-d} & 0 \\
 \end{bmatrix}
 $$
 
-Com isso, após realizarmos a multiplicação matricial, é possível obter as coordenadas no plano cartesiano das imagens projetadas na rata *y = -1*.
+Com isso, após realizarmos a multiplicação matricial, é possível obter as coordenadas no plano cartesiano das imagens projetadas na reta *y = -1*.
 O vetor $\overrightarrow{T}$ é obtido a partir da multiplicação $P @ \overrightarrow{X}$, ou seja:
 
 $$
@@ -93,3 +93,17 @@ w_p
 $$
 
 Após esse resultado, podemos obter o valor projetado $x_p$ através da divisão $\overrightarrow{T}[0] / \overrightarrow{T}[2]$. Assim obtemos as coordenadas projetadas $x_p, y_p$.
+
+Para realizar a projeção de um objeto tridimensional em um espaço bidimensional, a teoria é a mesma. O que muda é que o orifício pode ser considerado como estando na origem, $(0,0,0)$, e o aparato, em um plano bidimensional que está a uma distância *d* do orifício.
+Assim, o vetor $\overrightarrow{X}$, que representa as coordenadas do objeto, será um vetor tridimensional, $[x_0, y_0, z_0, 1]^T$. O vetor $\overrightarrow{T}$, que representa as coordenadas projetadas, será $[x_p * w_p, y_p * w_p, z_p, w_p]^T$. A matriz *P* será:
+
+$$
+P = \begin{bmatrix}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 0 & -d \\
+0 & 0 & \frac{1}{-d} & 0 \\
+\end{bmatrix}
+$$
+
+Os cálculos anteriores foram feitos com o aparato estando fixo paralelamente ao eixo *y* e com a dimensão *z* fixa, sendo necessário obter o ponto $x_p$. Alterando isso, obtemos os mesmos cálculos para o caso em que o aparato está fixo paralelamente ao eixo *x* e com a dimensão *z* fixa, chegando às mesmas conclusões para obter o ponto $y_p$. O ponto $z_p$ é obtido à partir da distância, como era obtido o ponto $y_p$ anteriormente.
