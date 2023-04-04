@@ -50,5 +50,12 @@ $$
 x_p = \frac{x_0}{y_0}y_p
 $$
 
+Para realizar o cálculo matricial, precisamos que o valor projetado, multiplicado por algum número real, dependa apenas de $x_0$. Assim, precisaremos obter um número $w_p$, tal que:
+
+$$
+x_p * w_p = x_0
+$$
+
+Com $w_p$ assumindo o valor de $/frac{y_0}{y_p}$. Com isso, podemos utilizar uma multiplicação matricial para resolver, com uma matriz de projeção *P*, que realizará a transformação de coordenadas 2D para uma dimensão, multiplicada por um vetor de coordenadas 2D, $[x_0, y_0, 1]^T$, para obter um vetor de coordenadas 1D, $[x_p * w_p, y_p, w_p]^T$.
 
 
