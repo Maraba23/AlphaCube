@@ -111,3 +111,43 @@ Os cálculos anteriores foram feitos com o aparato estando fixo paralelamente ao
 Segue, a seguir, uma imagem que representa um resumo teórico da explicação acima:
 
 ![3D Projection](teoria_matrizes_3d.jpeg)
+
+No código, a primeira coisa que é feita é definir as coordenadas dos vértices do cubo, armazenados no array `corners`. A função `draw_cube` irá utilizar essas coordenadas e a distância focal (`focal_length`) para desenhar o cubo em um espaço bidimensional, utilizando a teoria acima explicada.
+Ademais, a função também realiza as rotações do cubo nos 3 eixos utilizando trigonometria e multiplicações matriciais. Definimos os senos e cossenos dos ângulos que serão incrementados a cada tick do andamento do programa, e depois definimos as matrizes de rotação para cada eixo:
+
+$$ R_x = \begin{bmatrix}
+1 & 0 & 0 \\
+0 & cos(\theta) & -sin(\theta) \\
+0 & sin(\theta) & cos(\theta) \\
+\end{bmatrix} $$
+$$ R_y = \begin{bmatrix}
+cos(\theta) & 0 & sin(\theta) \\
+0 & 1 & 0 \\
+-sin(\theta) & 0 & cos(\theta) \\
+\end{bmatrix} $$
+$$ R_z = \begin{bmatrix}
+cos(\theta) & -sin(\theta) & 0 \\
+sin(\theta) & cos(\theta) & 0 \\
+0 & 0 & 1 \\
+\end{bmatrix}
+$$
+
+Com isso, podemos aplicar as rotações nos vértices do cubo, utilizando a multiplicação matricial. Isso está aplicado na seguinte seção do código:
+
+```python
+    # define the transformation matrices for rotating around the X, Y, and Z axes
+    cos_x, sin_x = math.cos(angle_x), math.sin(angle_x)
+    cos_y, sin_y = math.cos(angle_y), math.sin(angle_y)
+    cos_z, sin_z = math.cos(angle_z), math.sin(angle_z)
+
+    rotate_x = np.array([[1, 0, 0], [0, cos_x, -sin_x], [0, sin_x, cos_x]])
+    rotate_y = np.array([[cos_y, 0, sin_y], [0, 1, 0], [-sin_y, 0, cos_y]])
+    rotate_z = np.array([[cos_z, -sin_z, 0], [sin_z, cos_z, 0], [0, 0, 1]])
+
+    # apply the transformation matrices to each corner
+    rotated_corners = np.dot(rotate_z, corners)
+    rotated_corners = np.dot(rotate_y, rotated_corners)
+    rotated_corners = np.dot(rotate_x, rotated_corners)
+```
+
+Assim, o cubo pode ser rotacionado nos eixos $x$, $y$ e $z$.
