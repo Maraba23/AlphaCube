@@ -56,6 +56,40 @@ $$
 x_p * w_p = x_0
 $$
 
-Com $w_p$ assumindo o valor de $\frac{y_0}{y_p}$. Com isso, podemos utilizar uma multiplicação matricial para resolver, com uma matriz de projeção *P*, que realizará a transformação de coordenadas 2D para uma dimensão, multiplicada por um vetor de coordenadas 2D, $[x_0, y_0, 1]^T$, para obter um vetor de coordenadas 1D, $[x_p * w_p, y_p, w_p]^T$.
+Com $w_p$ assumindo o valor de $\frac{y_0}{y_p}$. Com isso, podemos utilizar uma multiplicação matricial para resolver, com uma matriz de projeção *P*, que realizará a transformação de coordenadas 2D para uma dimensão, multiplicada por um vetor de coordenadas bidimensionais *X*, $[x_0, y_0, 1]^T$, para obter um vetor de coordenadas *T*, $[x_p * w_p, y_p, w_p]^T$.
 
+Como sabemos que $x_p * w_p$ depende apenas de $x_0$, é possível deduzir a primeira linha da matriz *P*: $[1, 0, 0]$, ou seja, após a multiplicação matricial, o valor de $x_p * w_p$ será igual ao valor de $x_0$. 
+Também sabemos que o valor de $y_p$ será igual à distância focal *d*, que representa a distância entre o orifício da câmera e o aparato. Assim, a segunda linha da matriz *P* será $[0, 0, -d]$. Após a multiplicação matricial, o valor de $y_p$ será igual a $-d$. A distância precisa ser negativa pois a reta, como pode ser visto na figura acima, está abaixo da origem.
 
+Por fim, precisamos saber o valor $w_p$. Sabemos que $w_p = \frac{y_0}{y_p}$, e que $y_p = -d$. Assim, podemos concluir que $w_p = \frac{y_0}{-d}$. Assim, a terceira linha da matriz *P* será $[0, 0, \frac{y_0}{-d}]$. Portanto, a última linha da matriz *P* será $[0, \frac{1}{-d}, 0]$.
+
+Com isso, podemos concluir que a matriz *P* será:
+
+$$
+P = \begin{bmatrix}
+1 & 0 & 0 \\
+0 & 0 & -d \\
+0 & \frac{y_0}{-d} & 0 \\
+\end{bmatrix}
+$$
+
+Com isso, após realizarmos a multiplicação matricial, é possível obter as coordenadas no plano cartesiano das imagens projetadas na rata *y = -1*.
+O vetor $\arrow{T}$ é obtido a partir da multiplicação $P @ \arrow{X}$, ou seja:
+
+$$
+\begin{bmatrix}
+x_o \\
+y_o \\
+1
+\end{bmatrix} @ \begin{bmatrix}
+1 & 0 & 0 \\
+0 & 0 & -d \\
+0 & \frac{1}{-d} & 0 \\
+\end{bmatrix} = \begin{bmatrix}
+x_p * w_p \\
+y_p \\
+w_p
+\end{bmatrix}
+$$
+
+Após esse resultado, podemos obter o valor projetado $x_p$ através da divisão $\arrow{T}[0] / \arrow{T}[2]$. Assim obtemos as coordenadas projetadas $x_p, y_p$.
