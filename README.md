@@ -28,3 +28,27 @@ Se trata de um programa que simula o uso de ferramentas como OpenGL para simular
 `deactivate`
 
 ### Teoria:
+O projeto usa como base a teoria por trás de uma câmera Pinhole, que consiste em uma câmera com um pequeno orifício e um aparato fotossensível. Quando a luz entra pelo orifício, gera uma imagem invertida no aparato.
+Em um plano cartesiano bidimensional, é possível pensar na câmera com o orifício sendo o ponto (0, 0), e o aparato sendo uma reta que fica a uma distância *d* desse orifício. Assim, diversos pontos no plano cartesiano podem ser projetados nessa reta, como mostra a figura a seguir:
+
+![Pinhole Camera](pinhole_2d.jpeg)
+
+Na figura, o aparato é representado pela reta *y = -1*, e a distância focal *d* é representada pela distância entre o ponto (0, 0) e a reta *y = -1*, que é igual a 1.
+Assim, é possível projetar o ponto $x_0, y_0$ na reta *y = -1* e obter o ponto $x_p, y_p$, utilizando semelhança de triângulos.
+No caso acima, é importante notar que a dimensão *z* é fixa, ou seja, há apenas duas dimensões.
+É possível alterar isso fixando uma das demais dimensões, tornando as outras duas variáveis. 
+
+Por semelhança de triângulos, no caso acima, temos que:
+
+$$
+tan(\theta) = \frac{x_0}{y_0} = \frac{x_p}{y_p}
+$$
+
+Ou seja, 
+
+$$
+x_p = \frac{x_0}{y_0}y_p
+$$
+
+
+
