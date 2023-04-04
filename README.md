@@ -107,3 +107,7 @@ P = \begin{bmatrix}
 $$
 
 Os cálculos anteriores foram feitos com o aparato estando fixo paralelamente ao eixo *y* e com a dimensão *z* fixa, sendo necessário obter o ponto $x_p$. Alterando isso, obtemos os mesmos cálculos para o caso em que o aparato está fixo paralelamente ao eixo *x* e com a dimensão *z* fixa, chegando às mesmas conclusões para obter o ponto $y_p$. O ponto $z_p$ é obtido à partir da distância, como era obtido o ponto $y_p$ anteriormente.
+
+Segue, a seguir, uma imagem que representa um resumo teórico da explicação acima:
+
+![3D Projection](teoria_matrizes_3d.jpeg)
