@@ -128,6 +128,13 @@ def main():
                 x, y = event.pos
                 if y >= tamanho_tela[1] - 35 and y <= tamanho_tela[1] - 15 and x >= 120 and x <= 620:
                     muda_slider = True
+                elif x >= 10 and x <= 110:
+                    if y >= 50 and y <= 90:
+                        rotaciona_x = not rotaciona_x
+                    elif y >= 100 and y <= 140:
+                        rotaciona_y = not rotaciona_y
+                    elif y >= 150 and y <= 190:
+                        rotaciona_z = not rotaciona_z
             elif event.type == pygame.MOUSEBUTTONUP:
                 muda_slider = False
             elif event.type == pygame.MOUSEMOTION:
@@ -168,6 +175,7 @@ def main():
         pygame.display.flip()
 
     pygame.quit()
+
 
 if __name__ == "__main__":
     main()
