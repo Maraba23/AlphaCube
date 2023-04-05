@@ -77,10 +77,11 @@ def desenha_cubo(vertices, dist_focal, angulo_x, angulo_y, angulo_z, tamanho_tel
     # Desenha o slider
     fonte = pygame.font.Font(None, 24)
     label_surface = fonte.render("Focal Length:", True, (255, 255, 255))
-    tela.blit(label_surface, (10, tamanho_tela[0] - 30))
-    pygame.draw.rect(tela, (255, 255, 255), pygame.Rect(120, tamanho_tela[0] - 25, 500, 10))
+    tela.blit(label_surface, (10, tamanho_tela[1] - 30))
+    pygame.draw.rect(tela, (255, 255, 255), pygame.Rect(120, tamanho_tela[1] - 25, 500, 10))
     slider_pos = int((dist_focal - 100) * 500 / 900)
-    pygame.draw.circle(tela, (255, 255, 255), (slider_pos + 120, tamanho_tela[0] - 20), 10)
+    pygame.draw.circle(tela, (255, 255, 255), (slider_pos + 120, tamanho_tela[1] - 20), 10)
+
 
 def main():
 
@@ -125,18 +126,10 @@ def main():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 # verificar se o mouse está sobre o slider, ou se está sobre um dos botões de rotação
                 x, y = event.pos
-                if y >= tamanho_tela[0] - 35 and y <= tamanho_tela[0] - 15 and x >= 120 and x <= 620:
+                if y >= tamanho_tela[1] - 35 and y <= tamanho_tela[1] - 15 and x >= 120 and x <= 620:
                     muda_slider = True
-                elif x >= 10 and x <= 110 and y >= 50 and y <= 90:
-                    rotaciona_x = not rotaciona_x
-                elif x >= 10 and x <= 110 and y >= 100 and y <= 140:
-                    rotaciona_y = not rotaciona_y
-                elif x >= 10 and x <= 110 and y >= 150 and y <= 190:
-                    rotaciona_z = not rotaciona_z
-
             elif event.type == pygame.MOUSEBUTTONUP:
                 muda_slider = False
-
             elif event.type == pygame.MOUSEMOTION:
                 # Atualiza a nova distância focal
                 if muda_slider:
