@@ -101,6 +101,12 @@ def main():
     # Inicialização do Pygame
     pygame.init()
     pygame.mixer.init()
+    # inicializando a musica
+    pygame.mixer.music.load("pygame3.mp3")
+    pygame.mixer.music.play(-1)
+    # diminuindo o volume da musica
+    pygame.mixer.music.set_volume(0.1)
+
     pygame.display.set_caption("Cubo 3D Rotacionando")
     tamanho_tela = (800, 650)
 
