@@ -171,7 +171,7 @@ Com isso, podemos aplicar as rotações nos vértices do cubo, utilizando a mult
 
 Assim, o cubo pode ser rotacionado nos eixos $x$, $y$ e $z$.
 
-Para realizar as rotações, é necessário realizar uma translação no eixo Z, para que o cubo não fique "preso" no orifício. Isso é feito na seguinte seção do código:
+Para realizar as transformações na matriz, é necessário realizar uma translação no eixo Z, e depois transladar o cubo para o centro da tela. Para isso, definimos as matrizes de translação:
 
 ```python
     # Matrizes de translação do eixo Z e para o centro da tela
@@ -194,7 +194,7 @@ Por fim, o cubo é transladado novamente para o centro da tela:
     ])
 ```
 
-Por fim, definimos a matriz de projeção do Pinhole, e, por meio de multiplicações matriciais, obtemos a matriz de transformação final que, também por meio de multiplicações matriciais, será aplicado ao cubo:
+Por fim, definimos a matriz de projeção do Pinhole, e, por meio de multiplicações matriciais, obtemos a matriz de transformação final que, novamente por meio de multiplicações matriciais, será aplicada ao cubo:
 
 ```python
     # Matriz de projeção Pinhole
