@@ -9,13 +9,13 @@ focal_length = 500
 # define the corners of the cube relative to its center
 half_cube = cube_size // 2
 corners = np.array([[-half_cube, -half_cube, half_cube],
-                    [half_cube, -half_cube, half_cube],
-                    [half_cube, half_cube, half_cube],
-                    [-half_cube, half_cube, half_cube],
-                    [-half_cube, -half_cube, -half_cube],
-                    [half_cube, -half_cube, -half_cube],
-                    [half_cube, half_cube, -half_cube],
-                    [-half_cube, half_cube, -half_cube]]).T
+                [half_cube, -half_cube, half_cube],
+                [half_cube, half_cube, half_cube],
+                [-half_cube, half_cube, half_cube],
+                [-half_cube, -half_cube, -half_cube],
+                [half_cube, -half_cube, -half_cube],
+                [half_cube, half_cube, -half_cube],
+                [-half_cube, half_cube, -half_cube]]).T
 
 def draw_cube(angle_x, angle_y, angle_z, focal_length):
     positions = []
@@ -60,18 +60,27 @@ def draw_cube(angle_x, angle_y, angle_z, focal_length):
     slider_pos = int((focal_length - 100) * 500 / 900)
     pygame.draw.circle(screen, (255, 255, 255), (slider_pos + 120, height - 20), 10)
 
+    # draw the rotation speed slider and text label
+    label_surface = font.render("Rotation Speed:", True, (255, 255, 255))
+    screen.blit(label_surface, (10, height - 60))
+    pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(120, height - 55, 500, 10))
+    slider_pos = int(rotation_speed * 1000)
+    pygame.draw.circle(screen, (255, 255, 255), (slider_pos + 120, height - 50), 10)
+
 # initialize Pygame and create a window
 pygame.init()
 width, height = 800, 650
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Rotating Cube")
 
-# initialize the rotation angles to zero and set up the focal distance slider
+# initialize the rotation angles to zero and set up the focal distance slider and rotation speed slider
 angle_x, angle_y, angle_z = 0, 0, 0
 rotate_x_enabled = True
 rotate_y_enabled = True
 rotate_z_enabled = True
 focal_slider_changed = False
+rotation_speed = 0.01
+rotation_speed_changed = False
 
 # start the main loop
 # tick the clock to limit the frame rate to 60 frames per second
@@ -83,38 +92,33 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            # check if the user clicked on the focal distance slider
+            # check if the user clicked on the focal distance slider or the rotation speed slider
             x, y = event.pos
             if y >= height - 35 and y <= height - 15 and x >= 120 and x <= 620:
                 focal_slider_changed = True
-            elif x >= 10 and x <= 110 and y >= 50 and y <= 90:
-                rotate_x_enabled = not rotate_x_enabled
-            elif x >= 10 and x <= 110 and y >= 100 and y <= 140:
-                rotate_y_enabled = not rotate_y_enabled
-            elif x >= 10 and x <= 110 and y >= 150 and y <= 190:
-                rotate_z_enabled = not rotate_z_enabled
-
+            elif y >= height - 65 and y <= height - 45 and x >= 120 and x <= 620:
+                rotation_speed_changed = True
         elif event.type == pygame.MOUSEBUTTONUP:
             focal_slider_changed = False
-
+            rotation_speed_changed = False
         elif event.type == pygame.MOUSEMOTION:
-            # update the focal distance value based on the position of the slider
+            # update the focal distance or rotation speed value based on the position of the slider
             if focal_slider_changed:
                 x, y = event.pos
                 new_slider_pos = min(max(x - 120, 0), 500)
                 focal_length = int(new_slider_pos * 900 / 500 + 100)
+            elif rotation_speed_changed:
+                x, y = event.pos
+                new_slider_pos = min(max(x - 120, 0), 500)
+                rotation_speed = float(new_slider_pos) / 1000
 
     # fill the screen with black
     screen.fill((0, 0, 0))
 
     # update the rotation angles and draw the cube with the current focal distance
-    if rotate_x_enabled:
-        angle_x += 0.01
-    if rotate_y_enabled:
-        angle_y += 0.01
-    if rotate_z_enabled:
-        angle_z += 0.01
-
+    angle_x += rotation_speed
+    angle_y += rotation_speed
+    angle_z += rotation_speed
     draw_cube(angle_x, angle_y, angle_z, focal_length)
 
     # draw the button boxes and text labels
@@ -130,10 +134,9 @@ while running:
     screen.blit(label_surface, (25, 108))
 
     label_surface = font.render("Rotate Z", True, (255, 255, 255))
-    screen.blit(label_surface, (25, 158))
+    screen.blit(label_surface , (25, 158))
 
-    # update the display
+    # update the screen
     pygame.display.flip()
 
-# quit Pygame properly
 pygame.quit()
