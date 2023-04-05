@@ -122,6 +122,7 @@ R_x = \begin{bmatrix}
 0 & sin(\theta) & cos(\theta) \\
 \end{bmatrix} 
 $$
+
 $$ 
 R_y = \begin{bmatrix}
 cos(\theta) & 0 & sin(\theta) \\
@@ -129,6 +130,7 @@ cos(\theta) & 0 & sin(\theta) \\
 -sin(\theta) & 0 & cos(\theta) \\
 \end{bmatrix} 
 $$
+
 $$ 
 R_z = \begin{bmatrix}
 cos(\theta) & -sin(\theta) & 0 \\
