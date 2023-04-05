@@ -121,8 +121,13 @@ def main():
     while rodando:
         clock.tick(60)
         for event in pygame.event.get():
-            if event == pygame.QUIT:
+            if event.type == pygame.QUIT:
                 rodando = False
+                break
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    rodando = False
+                    break
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 # verificar se o mouse está sobre o slider, ou se está sobre um dos botões de rotação
                 x, y = event.pos
