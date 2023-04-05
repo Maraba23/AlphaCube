@@ -61,18 +61,18 @@ def desenha_cubo(vertices, dist_focal, angulo_x, angulo_y, angulo_z, tamanho_tel
     C = M_T @ vertices
 
     # Desenha as arestas do cubo
-    pygame.draw.line(tela, (255, 255, 255), (C[0, 0], C[1, 0]), (C[0, 1], C[1, 1]))
-    pygame.draw.line(tela, (255, 255, 255), (C[0, 1], C[1, 1]), (C[0, 2], C[1, 2]))
-    pygame.draw.line(tela, (255, 255, 255), (C[0, 2], C[1, 2]), (C[0, 3], C[1, 3]))
-    pygame.draw.line(tela, (255, 255, 255), (C[0, 3], C[1, 3]), (C[0, 0], C[1, 0]))
-    pygame.draw.line(tela, (255, 255, 255), (C[0, 4], C[1, 4]), (C[0, 5], C[1, 5]))
-    pygame.draw.line(tela, (255, 255, 255), (C[0, 5], C[1, 5]), (C[0, 6], C[1, 6]))
-    pygame.draw.line(tela, (255, 255, 255), (C[0, 6], C[1, 6]), (C[0, 7], C[1, 7]))
-    pygame.draw.line(tela, (255, 255, 255), (C[0, 7], C[1, 7]), (C[0, 4], C[1, 4]))
-    pygame.draw.line(tela, (255, 255, 255), (C[0, 0], C[1, 0]), (C[0, 4], C[1, 4]))
-    pygame.draw.line(tela, (255, 255, 255), (C[0, 1], C[1, 1]), (C[0, 5], C[1, 5]))
-    pygame.draw.line(tela, (255, 255, 255), (C[0, 2], C[1, 2]), (C[0, 6], C[1, 6]))
-    pygame.draw.line(tela, (255, 255, 255), (C[0, 3], C[1, 3]), (C[0, 7], C[1, 7]))
+    pygame.draw.line(tela, (255, 255, 255), (C[0, 0]/C[3, 0], C[1, 0]/C[3, 0]), (C[0, 1]/C[3, 1], C[1, 1]/C[3, 1]))
+    pygame.draw.line(tela, (255, 255, 255), (C[0, 1]/C[3, 1], C[1, 1]/C[3, 1]), (C[0, 2]/C[3, 2], C[1, 2]/C[3, 2]))
+    pygame.draw.line(tela, (255, 255, 255), (C[0, 2]/C[3, 2], C[1, 2]/C[3, 2]), (C[0, 3]/C[3, 3], C[1, 3]/C[3, 3]))
+    pygame.draw.line(tela, (255, 255, 255), (C[0, 3]/C[3, 3], C[1, 3]/C[3, 3]), (C[0, 0]/C[3, 0], C[1, 0]/C[3, 0]))
+    pygame.draw.line(tela, (255, 255, 255), (C[0, 4]/C[3, 4], C[1, 4]/C[3, 4]), (C[0, 5]/C[3, 5], C[1, 5]/C[3, 5]))
+    pygame.draw.line(tela, (255, 255, 255), (C[0, 5]/C[3, 5], C[1, 5]/C[3, 5]), (C[0, 6]/C[3, 6], C[1, 6]/C[3, 6]))
+    pygame.draw.line(tela, (255, 255, 255), (C[0, 6]/C[3, 6], C[1, 6]/C[3, 6]), (C[0, 7]/C[3, 7], C[1, 7]/C[3, 7]))
+    pygame.draw.line(tela, (255, 255, 255), (C[0, 7]/C[3, 7], C[1, 7]/C[3, 7]), (C[0, 4]/C[3, 4], C[1, 4]/C[3, 4]))
+    pygame.draw.line(tela, (255, 255, 255), (C[0, 0]/C[3, 0], C[1, 0]/C[3, 0]), (C[0, 4]/C[3, 4], C[1, 4]/C[3, 4]))
+    pygame.draw.line(tela, (255, 255, 255), (C[0, 1]/C[3, 1], C[1, 1]/C[3, 1]), (C[0, 5]/C[3, 5], C[1, 5]/C[3, 5]))
+    pygame.draw.line(tela, (255, 255, 255), (C[0, 2]/C[3, 2], C[1, 2]/C[3, 2]), (C[0, 6]/C[3, 6], C[1, 6]/C[3, 6]))
+    pygame.draw.line(tela, (255, 255, 255), (C[0, 3]/C[3, 3], C[1, 3]/C[3, 3]), (C[0, 7]/C[3, 7], C[1, 7]/C[3, 7]))
 
     # Desenha o slider
     fonte = pygame.font.Font(None, 24)
@@ -144,6 +144,8 @@ def main():
                     nova_posicao_slider  = min(max(x - 120, 0), 500)
                     dist_focal = int(nova_posicao_slider * 900 / 500 + 100)
 
+        tela.fill((0, 0, 0))
+
         # Atualiza os ângulos de rotação
         if rotaciona_x:
             angulo_x += 0.01
@@ -161,13 +163,13 @@ def main():
         pygame.draw.rect(tela, (0, 0, 255), pygame.Rect(10, 150, 100, 40), not rotaciona_z)
 
         fonte = pygame.font.Font(None, 24)
-        label_surface = fonte.render("Rotaciona X", True, (255, 255, 255))
+        label_surface = fonte.render("Rotate X", True, (255, 255, 255))
         tela.blit(label_surface, (25, 58))
 
-        label_surface = fonte.render("Rotaciona Y", True, (255, 255, 255))
+        label_surface = fonte.render("Rotate Y", True, (255, 255, 255))
         tela.blit(label_surface, (25, 108))
 
-        label_surface = fonte.render("Rotaciona Z", True, (255, 255, 255))
+        label_surface = fonte.render("Rotate Z", True, (255, 255, 255))
         tela.blit(label_surface, (25, 158))
 
         pygame.display.flip()
@@ -176,10 +178,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
