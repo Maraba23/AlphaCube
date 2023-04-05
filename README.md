@@ -143,19 +143,91 @@ $$
 Com isso, podemos aplicar as rotações nos vértices do cubo, utilizando a multiplicação matricial. Isso está aplicado na seguinte seção do código:
 
 ```python
-    # define the transformation matrices for rotating around the X, Y, and Z axes
-    cos_x, sin_x = math.cos(angle_x), math.sin(angle_x)
-    cos_y, sin_y = math.cos(angle_y), math.sin(angle_y)
-    cos_z, sin_z = math.cos(angle_z), math.sin(angle_z)
+    # Matrizes de rotação para cada eixo
+    R_X = np.array([
+        [1, 0, 0, 0],
+        [0, math.cos(angulo_x), -math.sin(angulo_x), 0],
+        [0, math.sin(angulo_x), math.cos(angulo_x), 0],
+        [0, 0, 0, 1]
+    ])
 
-    rotate_x = np.array([[1, 0, 0], [0, cos_x, -sin_x], [0, sin_x, cos_x]])
-    rotate_y = np.array([[cos_y, 0, sin_y], [0, 1, 0], [-sin_y, 0, cos_y]])
-    rotate_z = np.array([[cos_z, -sin_z, 0], [sin_z, cos_z, 0], [0, 0, 1]])
+    R_Y = np.array([
+        [math.cos(angulo_y), 0, math.sin(angulo_y), 0],
+        [0, 1, 0, 0],
+        [-math.sin(angulo_y), 0, math.cos(angulo_y), 0],
+        [0, 0, 0, 1]
+    ])
 
-    # apply the transformation matrices to each corner
-    rotated_corners = np.dot(rotate_z, corners)
-    rotated_corners = np.dot(rotate_y, rotated_corners)
-    rotated_corners = np.dot(rotate_x, rotated_corners)
+    R_Z = np.array([
+        [math.cos(angulo_z), -math.sin(angulo_z), 0, 0],
+        [math.sin(angulo_z), math.cos(angulo_z), 0, 0],
+        [0, 0, 1, 0],
+        [0, 0, 0, 1]
+    ])
+
+    # Matriz de rotação final
+    R = R_X @ R_Y @ R_Z
 ```
 
 Assim, o cubo pode ser rotacionado nos eixos $x$, $y$ e $z$.
+
+Para realizar as rotações, é necessário realizar uma translação no eixo Z, para que o cubo não fique "preso" no orifício. Isso é feito na seguinte seção do código:
+
+```python
+    # Matrizes de translação do eixo Z e para o centro da tela
+    T_Z = np.array([
+        [1, 0, 0, 0],
+        [0, 1, 0, 0],
+        [0, 0, 1, dist_focal],
+        [0, 0, 0, 1]
+    ])
+```
+
+Por fim, o cubo é transladado novamente para o centro da tela:
+
+```python
+    T_CENTRO = np.array([
+        [1, 0, 0, tamanho_tela[0] // 2],
+        [0, 1, 0, tamanho_tela[1] // 2],
+        [0, 0, 1, 0],
+        [0, 0, 0, 1]
+    ])
+```
+
+Por fim, definimos a matriz de projeção do Pinhole, e, por meio de multiplicações matriciais, obtemos a matriz de transformação final que, também por meio de multiplicações matriciais, será aplicado ao cubo:
+
+```python
+    # Matriz de projeção Pinhole
+    P = np.array([
+        [1, 0, 0, 0],
+        [0, 1, 0, 0],
+        [0, 0, 0, -dist_focal],
+        [0, 0, -1/dist_focal, 0]
+    ])
+
+    # Matriz de transformação final
+    M_T = T_CENTRO @ P @ T_Z @ R
+
+    # Aplicando a transformação no cubo
+    C = M_T @ vertices
+```
+
+Após isso, realizamos as operações padrão do `Pygame` para desenhar o cubo na tela, utilizando as coordenadas presentes na matriz $C$. 
+Para descobrirmos os pontos $x_p, y_p$, como discutido anteriormente, precisamos dividir os resultados obtidos por $w_p$, e isso é feito, no código, diretamente na função `draw_line`, chamada para desenhar cada aresta do cubo:
+
+```python
+    pygame.draw.line(tela, (255, 255, 255), (C[0, 0]/C[3, 0], C[1, 0]/C[3, 0]), (C[0, 1]/C[3, 1], C[1, 1]/C[3, 1]))
+    pygame.draw.line(tela, (255, 255, 255), (C[0, 1]/C[3, 1], C[1, 1]/C[3, 1]), (C[0, 2]/C[3, 2], C[1, 2]/C[3, 2]))
+    pygame.draw.line(tela, (255, 255, 255), (C[0, 2]/C[3, 2], C[1, 2]/C[3, 2]), (C[0, 3]/C[3, 3], C[1, 3]/C[3, 3]))
+    pygame.draw.line(tela, (255, 255, 255), (C[0, 3]/C[3, 3], C[1, 3]/C[3, 3]), (C[0, 0]/C[3, 0], C[1, 0]/C[3, 0]))
+    pygame.draw.line(tela, (255, 255, 255), (C[0, 4]/C[3, 4], C[1, 4]/C[3, 4]), (C[0, 5]/C[3, 5], C[1, 5]/C[3, 5]))
+    pygame.draw.line(tela, (255, 255, 255), (C[0, 5]/C[3, 5], C[1, 5]/C[3, 5]), (C[0, 6]/C[3, 6], C[1, 6]/C[3, 6]))
+    pygame.draw.line(tela, (255, 255, 255), (C[0, 6]/C[3, 6], C[1, 6]/C[3, 6]), (C[0, 7]/C[3, 7], C[1, 7]/C[3, 7]))
+    pygame.draw.line(tela, (255, 255, 255), (C[0, 7]/C[3, 7], C[1, 7]/C[3, 7]), (C[0, 4]/C[3, 4], C[1, 4]/C[3, 4]))
+    pygame.draw.line(tela, (255, 255, 255), (C[0, 0]/C[3, 0], C[1, 0]/C[3, 0]), (C[0, 4]/C[3, 4], C[1, 4]/C[3, 4]))
+    pygame.draw.line(tela, (255, 255, 255), (C[0, 1]/C[3, 1], C[1, 1]/C[3, 1]), (C[0, 5]/C[3, 5], C[1, 5]/C[3, 5]))
+    pygame.draw.line(tela, (255, 255, 255), (C[0, 2]/C[3, 2], C[1, 2]/C[3, 2]), (C[0, 6]/C[3, 6], C[1, 6]/C[3, 6]))
+    pygame.draw.line(tela, (255, 255, 255), (C[0, 3]/C[3, 3], C[1, 3]/C[3, 3]), (C[0, 7]/C[3, 7], C[1, 7]/C[3, 7]))
+```
+
+Como pode ser visto, em cada coordenada temos a divisão do valor $x_p * w_p$ e $y_p * w_p$, respectivamente, por $w_p$, presente na terceira linha da matriz.
