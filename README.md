@@ -23,7 +23,7 @@ Se trata de um programa que simula o uso de ferramentas como OpenGL para simular
 6. Instale as dependências do projeto através do comando no terminal:
 `pip install -r requirements.txt`
 7. Execute o programa através do comando no terminal:
-`python3 AlphaCube.py`
+`python3 Main.py`
 8. Para fechar o jogo, basta pressionar a tecla `ESC`, ou simplesmente fechar a janela.
 9. Para desativar o ambiente virtual, basta executar o comando no terminal:
 `deactivate`
