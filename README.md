@@ -113,7 +113,7 @@ Segue, a seguir, uma imagem que representa um resumo teórico da explicação ac
 
 ![3D Projection](teoria_matrizes_3d.jpeg)
 
-No código, a primeira coisa que é feita é definir as coordenadas dos vértices do cubo, armazenados no array `corners`. A função `draw_cube` irá utilizar essas coordenadas e a distância focal (`focal_length`) para desenhar o cubo em um espaço bidimensional, utilizando a teoria acima explicada.
+No código, a primeira coisa que é feita é definir as coordenadas dos vértices do cubo, armazenados no array `vertices`. A função `desenha_cubo` irá utilizar essas coordenadas e a distância focal (`dist_focal`) para desenhar o cubo em um espaço bidimensional, utilizando a teoria acima explicada.
 Ademais, a função também realiza as rotações do cubo nos 3 eixos utilizando trigonometria e multiplicações matriciais. Definimos os senos e cossenos dos ângulos que serão incrementados a cada tick do andamento do programa, e depois definimos as matrizes de rotação para cada eixo:
 
 $$ 
