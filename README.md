@@ -79,13 +79,13 @@ O vetor $\overrightarrow{T}$ é obtido a partir da multiplicação $P @ \overrig
 
 $$
 \begin{bmatrix}
-x_o \\
-y_o \\
-1
-\end{bmatrix} @ \begin{bmatrix}
 1 & 0 & 0 \\
 0 & 0 & -d \\
 0 & \frac{1}{-d} & 0 \\
+\end{bmatrix} @ \begin{bmatrix}
+x_o \\
+y_o \\
+1
 \end{bmatrix} = \begin{bmatrix}
 x_p * w_p \\
 y_p \\
