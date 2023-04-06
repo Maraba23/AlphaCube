@@ -9,6 +9,10 @@ O Projeto AlphaCube é um projeto que utiliza a biblioteca `Pygame` para desenha
 O programa também permite que o usuário ajuste a distância focal da câmera virtual utilizada para renderizar o cubo de 3 para 2 dimensões através de um controle deslizante.
 Se trata de um programa que simula o uso de ferramentas como OpenGL para simular a renderização de objetos 3D em 2D, movendo o cubo em torno de um eixo e alterando a distância focal da câmera virtual.
 
+### Gif do jogo
+
+![AlphaCube](GIF-2023-04-06-14-01-41.gif)
+
 ### Requisitos e Instruções:
 1. Certifique-se de ter instalado Python na versão 3.9 ou superior.
 2. Clone o repositório do projeto através do comando no terminal: 
