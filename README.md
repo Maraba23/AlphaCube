@@ -171,7 +171,7 @@ Com isso, podemos aplicar as rotações nos vértices do cubo, utilizando a mult
 
 Assim, o cubo pode ser rotacionado nos eixos $x$, $y$ e $z$.
 
-Para realizar as transformações na matriz, é necessário realizar uma translação no eixo Z, e depois transladar o cubo para o centro da tela. Para isso, definimos as matrizes de translação:
+Para realizar as transformações na matriz, é necessário realizar uma translação no eixo Z, permitindo que o usuário consiga visualizar o cubo, e depois transladar o cubo para o centro da tela, caso contrário o cubo estaria centrado no ponto *(0, 0)*. Para isso, definimos as matrizes de translação:
 
 ```python
     # Matrizes de translação do eixo Z e para o centro da tela
@@ -181,11 +181,7 @@ Para realizar as transformações na matriz, é necessário realizar uma transla
         [0, 0, 1, dist_focal],
         [0, 0, 0, 1]
     ])
-```
-
-Por fim, o cubo é transladado novamente para o centro da tela:
-
-```python
+    
     T_CENTRO = np.array([
         [1, 0, 0, tamanho_tela[0] // 2],
         [0, 1, 0, tamanho_tela[1] // 2],
@@ -231,3 +227,4 @@ Para descobrirmos os pontos $x_p, y_p$, como discutido anteriormente, precisamos
 ```
 
 Como pode ser visto, em cada coordenada temos a divisão do valor $x_p * w_p$ e $y_p * w_p$, respectivamente, por $w_p$, presente na terceira linha da matriz.
+Assim, as arestas do cubo serão desenhadas no centro da tela, com o tamanho correto de acordo com a distância focal estabelecida, e rotacionará nos eixos conforme escolha do usuário.
