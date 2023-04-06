@@ -118,25 +118,28 @@ Ademais, a função também realiza as rotações do cubo nos 3 eixos utilizando
 
 $$ 
 R_x = \begin{bmatrix}
-1 & 0 & 0 \\
-0 & cos(\theta) & -sin(\theta) \\
-0 & sin(\theta) & cos(\theta) \\
+1 & 0 & 0 & 0 \\
+0 & cos(\theta) & -sin(\theta) & 0 \\
+0 & sin(\theta) & cos(\theta) & 0\\
+0 & 0 & 0 & 1 \\
 \end{bmatrix} 
 $$
 
 $$ 
 R_y = \begin{bmatrix}
-cos(\theta) & 0 & sin(\theta) \\
-0 & 1 & 0 \\
--sin(\theta) & 0 & cos(\theta) \\
+cos(\theta) & 0 & sin(\theta) & 0 \\
+0 & 1 & 0 & 0 \\
+-sin(\theta) & 0 & cos(\theta) & 0\\
+0 & 0 & 0 & 1 \\
 \end{bmatrix} 
 $$
 
 $$ 
 R_z = \begin{bmatrix}
-cos(\theta) & -sin(\theta) & 0 \\
-sin(\theta) & cos(\theta) & 0 \\
-0 & 0 & 1 \\
+cos(\theta) & -sin(\theta) & 0 & 0 \\
+sin(\theta) & cos(\theta) & 0 & 0 \\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1 \\    
 \end{bmatrix}
 $$
 
